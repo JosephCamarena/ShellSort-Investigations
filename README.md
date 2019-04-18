@@ -57,3 +57,11 @@ Note:
 
 • Be sure to NOT print out the entire data set (1 million items possible)
 
+
+
+##Input/Output
+*Command Line Inputs*:
+
+If the name of the file containing the main() method is in main.java, it will be compiled using javac main.java, producing main.class. main.class will be run in the following manner to compile the list of 10^3 decimal fractions found in 1000input.txt:
+
+	C:\java.exe main 1000input.txt 5
