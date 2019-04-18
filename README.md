@@ -8,7 +8,7 @@ The following three input sequences are to be used to perform the Shellsort comp
 
 	1. h[]= 2^i: {1,2,4,8,16, . . .}
 	2. h[]= 4^i + 3 · 2^(i − 1) + 1: {1,8,23,77,281, . . .}
-	3. Successive terms of the form 2^p · 3^q: {1,2,3,4,6,8,9,12, . . .}		[Pratt, 1971](https://www.apps.dtic.mil/dtic/tr/fulltext/u2/740110.pdf)
+	3. Successive terms of the form 2^p · 3^q: {1,2,3,4,6,8,9,12, . . .}
 	4. Successive terms of the form 2^i − 1: {1,3,7,15,31,63, . . .}
 
 The program takes its input from the command line:
@@ -24,7 +24,7 @@ You  are  required  to  create  a  driver  program  that  acts  as  a  client  w
 
 ```java
 	//  test  client
-public  s t a t i c  void main(String [] args) {
+public  static  void main(String [] args) {
 	//  Get  the  file  name  of  the  data  set , and  the  number  of  runs
 	//  for  the  data  set  from  the  command  line
 	//  Read  in  the  file  of N  random  Doubles  from  the  command  line  and
