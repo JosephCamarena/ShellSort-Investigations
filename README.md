@@ -49,11 +49,11 @@ public  static  void main(String [] args) {
 	//  display  results  for  an  average  generated  from  at  least
 }
 ```
-	Note:
+Note:
 
-	• Develop a summary report
+• Develop a summary report
 
-	• Discuss results
+• Discuss results
 
-	• Be sure to NOT print out the entire data set (1 million items possible)
+• Be sure to NOT print out the entire data set (1 million items possible)
 
