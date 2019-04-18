@@ -47,3 +47,12 @@ You  are  required  to  create  a  driver  program  that  acts  as  a  client  w
 	duration4 = System.nanoTime()- start;
 	//  display  results  for  an  average  generated  from  at  least
 	}
+
+	Note:
+
+	• Develop a summary report
+
+	• Discuss results
+
+	• Be sure to NOT print out the entire data set (1 million items possible)
+
