@@ -59,7 +59,7 @@ Note:
 
 
 
-##Input/Output
+## Input/Output
 *Command Line Inputs*:
 
 If the name of the file containing the main() method is in main.java, it will be compiled using javac main.java, producing main.class. main.class will be run in the following manner to compile the list of 10^3 decimal fractions found in 1000input.txt:
