@@ -10,3 +10,10 @@ The following three input sequences are to be used to perform the Shellsort comp
 	2. h[]= 4^i + 3 · 2^(i − 1) + 1: {1,8,23,77,281, . . .}
 	3. Successive terms of the form 2^p · 3^q: {1,2,3,4,6,8,9,12, . . .}
 	4. Successive terms of the form 2^i − 1: {1,3,7,15,31,63, . . .}
+
+The program takes its input from the command line:
+• arg[0] = the name of the file containing the data
+• arg[1] = the number of trials to be performed with each sequence (so that an average time can be determined)
+
+The trials are then performed and the average run times from each sequence along with the ratios (see below) are output to the console window. Program reads in files of various random lengths and determines the time to complete the sort
+routine for each sequence.
