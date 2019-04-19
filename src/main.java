@@ -160,7 +160,8 @@ public class main {
 
 		int [] h3 = new int[count];
 
-		int index = 0; j = 0;
+		int index = 0; 
+		j = 0;
 		for (int i=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; i++ ) {
 
 			for (j=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; j++) {
