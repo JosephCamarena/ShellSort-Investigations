@@ -39,7 +39,9 @@ public class ShellSort {
 	
 	private void exch (Double[] data, int i, int j) {
 		
-		Double temp = data[i]; data[i] = data[j]; data[j] = temp;
+		Double temp = data[i];
+		data[i] = data[j];
+		data[j] = temp;
 	}
 	
 	public long getComparisons() {
