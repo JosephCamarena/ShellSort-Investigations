@@ -1,7 +1,5 @@
-# ShellSort Investigations
+# ShellSort Investigations [![CodeFactor](https://www.codefactor.io/repository/github/josephcamarena/shellsort-investigations/badge)](https://www.codefactor.io/repository/github/josephcamarena/shellsort-investigations)
 Evaluates several increment sequences to be used in ShellSort. From the sequences required, the time required to sort the data set will be averaged over some number of runs. The number of runs will be a variable that a user can enter from the command line when starting the program.
-
-[![CodeFactor](https://www.codefactor.io/repository/github/josephcamarena/shellsort-investigations/badge)](https://www.codefactor.io/repository/github/josephcamarena/shellsort-investigations)
 
 ## Problem Statement
 Write a driver to compare performances of increment sequences for Shellsort. Use the following increments:
