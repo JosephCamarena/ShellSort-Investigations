@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.io.File;
 
 public class main {
@@ -20,13 +20,13 @@ public class main {
 		Scanner inFile = inFileCheck(fileRead);
 		int numberOfTrials = trialCheck(args[1]);
 
-		List<String> numLinesFile = Files.readAllLines(Paths.get(fileRead));
-		Double[] data = new Double[ numLinesFile.size() ];
+		int dataSetSize= Files.readAllLines(Paths.get(fileRead)).size();
+		Double[] data = new Double[ dataSetSize ];
 		data = populateArray(inFile, data);
 
 		printHeader(fileRead, numberOfTrials);
 
-		int upperVal = numLinesFile.size() / 2;
+		int upperVal = dataSetSize / 2;
 		int[] h1 = populateH1(upperVal);
 		int[] h2 = populateH2(upperVal);
 		int[] h3 = populateH3(upperVal);
@@ -39,7 +39,7 @@ public class main {
 
 	public static void argCheck (int numArgs) {
 
-		if (numArgs < 1 || numArgs >  2) {
+		if (numArgs != 2) {
 			System.err.println("Invalid # of arguments: " + numArgs
 					+ "\nArguments required:     2"
 					+ "\nExiting Program.");
@@ -89,137 +89,107 @@ public class main {
 		System.out.println();
 		System.out.println("Number of trials: " + numberOfTrials);
 		System.out.println();
-		//System.out.println("Number of lines in file: " + numLinesFile.size() );
-		//System.out.println();
 	}
 
 	public static int[] populateH1 (int upperVal) {
 
-		int i = 0;
-		while(Math.pow(2, i) < upperVal) {
-			i++;
-		}
-		int[] h1 = new int[i--];
-
 		System.out.println("seq 1:");
 
-		i = 0;
-		for(int j = h1.length-1; j >= 0; j--) {
+		ArrayList<Integer> h1Raw = new ArrayList<Integer>();
+		for (int i = 0; Math.pow(2,i) < upperVal; i++) {
 
-			h1[i] = (int) Math.pow(2, j);
-			System.out.print(" " + h1[i]);
-			++i;
+			h1Raw.add( (int)Math.pow(2,i) );
 		}
+		Collections.sort(h1Raw, Collections.reverseOrder());
+
+		int[] h1 = new int[h1Raw.size()];
+
+		for (int i=0; i<h1.length; ++i) {
+
+			h1[i] = (int) h1Raw.get(i);
+			System.out.print (" " + h1[i]);
+		}
+
 		System.out.println();
 		System.out.println();
+
 		return h1;
 	}
 
 	public static int[] populateH2 (int upperVal) {
 
-		int i = 0;
-		while( (Math.pow(4,i) + 3 * Math.pow(2,(i-1) ) + 1) < upperVal) {
-			i++;
-		}
-
-		int[] h2 = new int[i];
-
 		System.out.println("seq 2:");
 
-		i = 0;
-		for(int j = h2.length-1; j >= 0; j--) {
+		ArrayList<Integer> h2Raw = new ArrayList<Integer>();
+		for (int i = 0; (Math.pow(4,i) + 3 * Math.pow(2,(i-1) ) + 1) < upperVal; i++) {
 
-			if(j==0) h2[i] = 1;
+			if(i==0) h2Raw.add(1);
 			else {
-				h2[i] = (int) Math.pow(4, (j) ) + 3 * (int) Math.pow(2,j-1) + 1;
-				++i;	
+				h2Raw.add( (int)Math.pow(4,i) + 3 * (int)Math.pow(2,(i-1) ) + 1 );
 			}
 		}
+		Collections.sort(h2Raw, Collections.reverseOrder());
 
-		for(i = 0; i < h2.length; i++)
-		{
-			System.out.print(" " + h2[i]);
+		int[] h2 = new int[h2Raw.size()];
+
+		for (int i = 0; i < h2.length; ++i) {
+
+			h2[i] = (int) h2Raw.get(i);
+			System.out.print (" " + h2[i]);
 		}
 		System.out.println();
 		System.out.println();
+
 		return h2;
 	}
 
 	public static int[] populateH3 (int upperVal) {
 
-		int count = 0;
-		int j = 0;
-		for (int i=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; i++ ) {
-
-			for (j=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; j++) {
-				count++;
-			}
-
-			j = 0;
-		}
-
-		int [] h3 = new int[count];
-
-		int index = 0; 
-		j = 0;
-		for (int i=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; i++ ) {
-
-			for (j=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; j++) {
-
-				h3[index] = (int)Math.pow(2,i) * (int)Math.pow(3,j);
-				index++;
-			}
-
-			j = 0;
-
-		}
-
-		Arrays.sort(h3);
-		//array reversal
-		for (int i = 0; i < h3.length / 2; i++) {
-			int temp = h3[i]; // swap numbers
-			h3[i] = h3[h3.length - 1 - i];
-			h3[h3.length - 1 - i] = temp;
-		}
-
 		System.out.println("seq 3:");
+		ArrayList<Integer> h3Raw = new ArrayList<Integer>();
+		for (int i = 0; (int)Math.pow(2,i) < upperVal; i++) {
 
-		for (int i = 0; i < h3.length; i++) {
+			for (int j=0; ((int)Math.pow(2,i) * (int)Math.pow(3,j)) < upperVal; j++) {
 
-			System.out.print(" " + h3[i]); 
+				h3Raw.add ( (int)Math.pow(2,i) * (int)Math.pow(3,j) );
+			}
+		}
+		Collections.sort(h3Raw, Collections.reverseOrder());
+
+		int[] h3 = new int[h3Raw.size()];
+
+		for (int i = 0; i < h3.length; ++i) {
+
+			h3[i] = (int) h3Raw.get(i);
+			System.out.print (" " + h3[i]);
 		}
 		System.out.println();
 		System.out.println();
+
 		return h3;
 	}
 
 	public static int[] populateH4 (int upperVal) {
 
-		int i = 0;
-		while (Math.pow(2, i) - 1 < upperVal) {
-			i++;
-		}
-
-		int[] h4 = new int[--i];
-
 		System.out.println("seq 4:");
 
-		i=0;
-		for(int j = h4.length; j > 0; j--) {
+		ArrayList<Integer> h4Raw = new ArrayList<Integer>();
+		for (int i = 1; Math.pow(2, i) - 1 < upperVal; i++) {
 
-			if (j==0) h4[i] = 1;
-			else {
-				h4[i] = (int) Math.pow(2, j) - 1;
-				++i;
-			}
+			h4Raw.add( (int)Math.pow(2,i) - 1 );
 		}
+		Collections.sort(h4Raw, Collections.reverseOrder());
 
-		for(i = 0; i < h4.length; i++)
-		{
-			System.out.print(" " + h4[i]);
+		int[] h4 = new int[h4Raw.size()];
+
+		for (int i = 0; i < h4.length; ++i) {
+
+			h4[i] = (int) h4Raw.get(i);
+			System.out.print (" " + h4[i]);
 		}
 		System.out.println();
 		System.out.println();
+
 		return h4;
 	}
 
