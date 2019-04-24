@@ -3,12 +3,12 @@
 // jc0588321@swccd.edu
 
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Scanner;
 import java.io.File;
 
 public class main {
@@ -16,15 +16,16 @@ public class main {
 	public static void main(String[] args) throws IOException {
 
 		argCheck(args.length);
-		String fileRead = args[0];
-		Scanner inFile = inFileCheck(fileRead);
-		int numberOfTrials = trialCheck(args[1]);
+		String fileNameRead = args[0];
+		Scanner inFile = inFileCheck(fileNameRead);
+		int numberOfTrials = getNumTrials(args[1]);
 
-		int dataSetSize= Files.readAllLines(Paths.get(fileRead)).size();
+		int dataSetSize= Files.readAllLines(Paths.get(fileNameRead)).size();
 		Double[] data = new Double[ dataSetSize ];
 		data = populateArray(inFile, data);
-
-		printHeader(fileRead, numberOfTrials);
+		inFile.close();
+		
+		printHeader(fileNameRead, numberOfTrials);
 
 		int upperVal = dataSetSize / 2;
 		int[] h1 = populateH1(upperVal);
@@ -48,20 +49,20 @@ public class main {
 
 	}
 
-	public static Scanner inFileCheck (String fileRead) {
+	public static Scanner inFileCheck (String fileNameRead) {
 
 		Scanner inFile = null;
 		try {
-			inFile = new Scanner(new File(fileRead));
+			inFile = new Scanner(new File(fileNameRead));
 		} catch (FileNotFoundException e) {
-			System.err.println ("Error: File " + fileRead + " (No such file or directory)"
+			System.err.println ("Error: File " + fileNameRead + " (No such file or directory)"
 					+ "\nExiting Program.");
 			System.exit(1);
 		}
 		return inFile;
 	}
 
-	public static int trialCheck(String trials) {
+	public static int getNumTrials(String trials) {
 		int numberOfTrials = 0;
 		try {
 			numberOfTrials = Integer.parseInt(trials);
@@ -102,18 +103,11 @@ public class main {
 		}
 		Collections.sort(h1Raw, Collections.reverseOrder());
 
-		int[] h1 = new int[h1Raw.size()];
-
-		for (int i=0; i<h1.length; ++i) {
-
-			h1[i] = (int) h1Raw.get(i);
-			System.out.print (" " + h1[i]);
-		}
-
+		System.out.print(" " + h1Raw);
 		System.out.println();
 		System.out.println();
-
-		return h1;
+		
+		return h1Raw.stream().mapToInt(i->i).toArray();
 	}
 
 	public static int[] populateH2 (int upperVal) {
@@ -130,17 +124,11 @@ public class main {
 		}
 		Collections.sort(h2Raw, Collections.reverseOrder());
 
-		int[] h2 = new int[h2Raw.size()];
-
-		for (int i = 0; i < h2.length; ++i) {
-
-			h2[i] = (int) h2Raw.get(i);
-			System.out.print (" " + h2[i]);
-		}
+		System.out.print(" " + h2Raw);
 		System.out.println();
 		System.out.println();
-
-		return h2;
+		
+		return h2Raw.stream().mapToInt(i->i).toArray();
 	}
 
 	public static int[] populateH3 (int upperVal) {
@@ -156,17 +144,11 @@ public class main {
 		}
 		Collections.sort(h3Raw, Collections.reverseOrder());
 
-		int[] h3 = new int[h3Raw.size()];
-
-		for (int i = 0; i < h3.length; ++i) {
-
-			h3[i] = (int) h3Raw.get(i);
-			System.out.print (" " + h3[i]);
-		}
+		System.out.print(" " + h3Raw);
 		System.out.println();
 		System.out.println();
-
-		return h3;
+		
+		return h3Raw.stream().mapToInt(i->i).toArray();
 	}
 
 	public static int[] populateH4 (int upperVal) {
@@ -180,22 +162,19 @@ public class main {
 		}
 		Collections.sort(h4Raw, Collections.reverseOrder());
 
-		int[] h4 = new int[h4Raw.size()];
-
-		for (int i = 0; i < h4.length; ++i) {
-
-			h4[i] = (int) h4Raw.get(i);
-			System.out.print (" " + h4[i]);
-		}
+		System.out.print(" " + h4Raw);
 		System.out.println();
 		System.out.println();
-
-		return h4;
+		
+		return h4Raw.stream().mapToInt(i->i).toArray();
 	}
 
 	public static void runTrials(Double[] data, int[] h1, int[] h2, int[] h3, int[] h4, int numberOfTrials) {
 
-		ShellSort study = new ShellSort( data );
+		ShellSort study1 = new ShellSort( data );
+		ShellSort study2 = new ShellSort( data );
+		ShellSort study3 = new ShellSort( data );
+		ShellSort study4 = new ShellSort( data );
 		long start = 0L, duration1 = 0L, duration2 = 0L, duration3 = 0L, duration4 = 0L;
 		long comparisons1 = 0L, comparisons2 = 0L, comparisons3 = 0L, comparisons4 = 0L;
 		int j = 0;
@@ -203,29 +182,32 @@ public class main {
 		while( j < numberOfTrials) {
 
 			start = System.nanoTime();
-			study.sortUsing( h1 );
+			study1.sortUsing( h1 );
 			duration1 += (System.nanoTime() - start);
-			comparisons1 += study.getComparisons();
-			study.resetComparisons();
+			comparisons1 += study1.getComparisons();
+			study1.resetComparisons();
 
 			start = System.nanoTime();
-			study.sortUsing( h2 );
+			study2.sortUsing( h2 );
 			duration2 += (System.nanoTime() - start);
-			comparisons2 += study.getComparisons();
-			study.resetComparisons();
+			comparisons2 += study2.getComparisons();
+			study2.resetComparisons();
 
 			start = System.nanoTime();
-			study.sortUsing( h3 );
+			study3.sortUsing( h3 );
 			duration3 += (System.nanoTime() - start);
-			comparisons3 += study.getComparisons();
-			study.resetComparisons();
+			comparisons3 += study3.getComparisons();
+			study3.resetComparisons();
 
 			start = System.nanoTime();
-			study.sortUsing( h4 );
+			study4.sortUsing( h4 );
 			duration4 += (System.nanoTime() - start);
-			comparisons4 += study.getComparisons();
+			comparisons4 += study4.getComparisons();
 
-			study = new ShellSort( data );
+			study1 = new ShellSort( data );
+			study2 = new ShellSort( data );
+			study3 = new ShellSort( data );
+			study4 = new ShellSort( data );
 			j++;
 		}
 		double trialDuration = (System.nanoTime() - trialStart) / 1_000_000.0;
