@@ -233,7 +233,6 @@ public class main {
 
 		System.out.println("Average Time:");
 		System.out.println();
-		//System.out.println("Average Time Using Sequence h[i] = 2^i for " + numberOfTrials + " trials is " + avgTimeSeq1 + " ms");
 		System.out.printf("Average Time Using Sequence h[i] = 2^i               for %d trials is %f ms%n", numberOfTrials, avgTimeSeq1 );
 		System.out.printf("Average Time Using Sequence h[i] = 4^i - 3 * 2^i + 1 for %d trials is %f ms%n", numberOfTrials, avgTimeSeq2 );
 		System.out.printf("Average Time Using Sequence h[i] = 2^p * 3^q         for %d trials is %f ms%n", numberOfTrials, avgTimeSeq3 );
